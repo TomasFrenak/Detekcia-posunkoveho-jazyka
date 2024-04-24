@@ -8,10 +8,10 @@ from sklearn.metrics import accuracy_score
 import utils.settings as s
 
 
-X_dataset = np.loadtxt(s.DATA_PATH, delimiter=',', dtype='float32', usecols=list(range(1, 42 + 1)))
+X_dataset = np.loadtxt(s.DATA_PATH, delimiter=',', dtype='float32', usecols=list(range(1, s.DATA_POINTS + 1)))
 y_dataset = np.loadtxt(s.DATA_PATH, delimiter=',', dtype='str', usecols=0, encoding='utf-8-sig')
 
-X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.75)
+X_train, X_test, y_train, y_test = train_test_split(X_dataset, y_dataset, train_size=0.9)
 
 model = RandomForestClassifier()
 
