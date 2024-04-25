@@ -4,7 +4,8 @@ import mediapipe as mp
 
 def draw_hand_info(frame, prediction):
     # Draws the information about the hand and predicted gesture on the screen
-    cv2.putText(frame, f": {prediction[0]}", (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (0, 0, 0), 3,
+    (h,w) = frame.shape[:2]
+    cv2.putText(frame, f"{prediction[0]}", (w//2, h - 50), cv2.FONT_HERSHEY_SIMPLEX, 4, (0, 0, 365), 6,
                 cv2.LINE_AA)
 
 
@@ -32,3 +33,8 @@ def draw_text_rect(frame, text, x, y, color: tuple[int, int, int]):
     # Draws a rectangle around the text
     text_size = cv2.getTextSize(text, cv2.FONT_HERSHEY_SIMPLEX, 1.3, 3)
     cv2.rectangle(frame, (x - 10, y - 10), (x + text_size[0][0] + 10, y + text_size[0][1] + 10), color, -1)
+
+
+def draw_text(frame, text, x, y):
+    draw_text_rect(frame, text, x, y + 20, (233, 196, 209))
+    cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1.3, (146, 27, 49), 3, cv2.LINE_AA)

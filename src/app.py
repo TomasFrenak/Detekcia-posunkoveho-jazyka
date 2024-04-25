@@ -81,9 +81,7 @@ def recognize_gestures():
         prediction = prediction_model.classes_[probabilities.argmax()]
 
         if confidence > 0.5:
-            print(f"{confidence} -> {prediction}")
-
-        draw_hand_info(frame, prediction=prediction)
+            draw_hand_info(frame, prediction=prediction)
 
         cv2.imshow('Hand Gesture Recognition', frame)
 

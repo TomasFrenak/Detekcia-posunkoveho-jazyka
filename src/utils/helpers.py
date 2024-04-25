@@ -50,12 +50,12 @@ def get_gestures_to_record():
 
 def get_hand_data(rh, lh):
     if HAND == 'RIGHT':
-        landmarks = np.array([[pos.x, pos.y] for pos in rh.landmark]).flatten() if rh else np.zeros(42)
+        landmarks = np.array([[pos.x, pos.y, pos.z] for pos in rh.landmark]).flatten() if rh else np.zeros(DATA_POINTS_PER_HAND)
     elif HAND == 'LEFT':
-        landmarks = np.array([[pos.x, pos.y] for pos in lh.landmark]).flatten() if lh else np.zeros(42)
+        landmarks = np.array([[pos.x, pos.y, pos.z] for pos in lh.landmark]).flatten() if lh else np.zeros(DATA_POINTS_PER_HAND)
     else:
-        rh_landmarks = np.array([[pos.x, pos.y] for pos in rh.landmark]).flatten() if rh else np.zeros(42)
-        lh_landmarks = np.array([[pos.x, pos.y] for pos in lh.landmark]).flatten() if lh else np.zeros(42)
+        rh_landmarks = np.array([[pos.x, pos.y, pos.z] for pos in rh.landmark]).flatten() if rh else np.zeros(DATA_POINTS_PER_HAND)
+        lh_landmarks = np.array([[pos.x, pos.y, pos.z] for pos in lh.landmark]).flatten() if lh else np.zeros(DATA_POINTS_PER_HAND)
 
         landmarks = np.concatenate([rh_landmarks, lh_landmarks])
 

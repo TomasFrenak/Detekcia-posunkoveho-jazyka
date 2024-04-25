@@ -9,7 +9,7 @@ HAND_IMAGES = 10
 
 # Number of data points collected by MediaPipe holistic model
 POINTS_ON_HAND = 21  # Points per hand
-DATA_POINTS_PER_HAND = POINTS_ON_HAND * 2  # 2 cords (x,y) per data point on hand
+DATA_POINTS_PER_HAND = POINTS_ON_HAND * 3  # 3 cords (x,y, z) per data point on hand
 DATA_POINTS = DATA_POINTS_PER_HAND if HAND != 'BOTH' else DATA_POINTS_PER_HAND * 2  # 1 or 2 hands
 
 # PATHS
