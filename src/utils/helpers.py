@@ -4,12 +4,12 @@ import cv2
 import joblib
 import numpy as np
 
-from src.utils.settings import DATA_DIR, DATA_PATH, MODEL_PATH, HAND
+from src.utils.settings import DATA_DIR, DATA_PATH, MODEL_PATH, HAND, DATA_POINTS_PER_HAND, DATA_POINTS_ON_FACE, DATA_POINTS_ON_POSE
 
 
 def check_if_gesture_exists(hand_gestures: list):
     try:
-        with open(f'{DATA_DIR}/data.csv', encoding='utf-8-sig') as file:
+        with open(DATA_PATH, encoding='utf-8-sig') as file:
             current_gesture_data_csv = csv.reader(file)
             current_gesture_data = list(current_gesture_data_csv)
             current_gestures = [row[0] for row in current_gesture_data][1:]
@@ -61,6 +61,17 @@ def get_hand_data(rh, lh):
 
     return landmarks
 
+def get_all_gesture_data(results):
+    rh, lh = results.right_hand_landmarks, results.left_hand_landmarks
+    face, pose = results.face_landmarks, results.pose_landmarks
+
+    rh_landmarks = np.array([[pos.x, pos.y, pos.z] for pos in rh.landmark]).flatten() if rh else np.zeros(DATA_POINTS_PER_HAND)
+    lh_landmarks = np.array([[pos.x, pos.y, pos.z] for pos in lh.landmark]).flatten() if lh else np.zeros(DATA_POINTS_PER_HAND)
+
+    face_landmarks = np.array([[pos.x, pos.y, pos.z] for pos in face.landmark]).flatten() if face else np.zeros(DATA_POINTS_ON_FACE)
+    pose_landmarks = np.array([[pos.x, pos.y, pos.z] for pos in pose.landmark]).flatten() if pose else np.zeros(DATA_POINTS_ON_POSE)
+
+    return np.concatenate([rh_landmarks, lh_landmarks, face_landmarks, pose_landmarks])
 
 def load_saved_model():
     try:
@@ -98,3 +109,9 @@ def select_mode(key, mode):
         return mode, True
     else:
         return mode, False
+
+
+def clear_capture():
+    with open(f'{DATA_DIR}/capture.txt', 'w') as file:
+        file.write('')
+    print("'capture.txt' cleared")
